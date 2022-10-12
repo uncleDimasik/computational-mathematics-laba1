@@ -6,23 +6,36 @@ namespace VMathLaba1._1
     {
         static void Main(string[] args)
         {
-            Console.Write("Машинный эпсилон для типа float, полученный при расчетах: ");
-            PrintColoredText(string.Format("{0}", GetFloatMachineEpsilon()), ConsoleColor.Cyan);
+            Console.WriteLine("Расчеты");
 
-            Console.Write("\nМашинный ноль для типа float в C#: ");
-            PrintColoredText(string.Format("{0}\n", float.Epsilon), ConsoleColor.Cyan);
+            Console.Write("\nМашинный эпсилон для типа float, полученный при расчетах: ");
+            PrintColoredText(string.Format("{0}\n", GetFloatMachineEpsilon()), ConsoleColor.Cyan);
+           
+            Console.Write("\nВычисленный Машинный ноль для типа float в C#: ");
+            PrintColoredText(string.Format("{0}\n", GeFloatMachineZero()), ConsoleColor.Cyan);
 
             Console.Write("\nМашинный эпсилон для типа double, полученный при расчетах: ");
-            PrintColoredText(string.Format("{0}", GetDoubleMachineEpsilon()), ConsoleColor.Cyan);
+            PrintColoredText(string.Format("{0}\n", GetDoubleMachineEpsilon()), ConsoleColor.Cyan);
 
-            Console.Write("\nМашинный ноль для типа double в C#: ");
-            PrintColoredText(string.Format("{0}\n", double.Epsilon), ConsoleColor.Cyan);
+            Console.Write("\nВычисленный Машинный ноль для типа double в C#: ");
+            PrintColoredText(string.Format("{0}\n", GetDoubleMachineZero()), ConsoleColor.Cyan);
 
             Console.Write("\nМашинная бесконечность для типа float равна: ");
             PrintColoredText(string.Format("{0}\n", GetFloatMachineInfinity()), ConsoleColor.Cyan);
 
+
             Console.Write("\nМашинная бесконечность для типа double: ");
-            PrintColoredText(string.Format("{0}", GetDoubleMachineInfinity()), ConsoleColor.Cyan);
+            PrintColoredText(string.Format("{0}\n", GetDoubleMachineInfinity()), ConsoleColor.Cyan);
+
+            Console.WriteLine("\n\nРеференсные значения в .NET");
+
+            Console.Write("\nМашинный ноль для типа float в C#: ");
+            PrintColoredText(string.Format("{0}\n", float.Epsilon), ConsoleColor.Cyan);
+     
+
+            Console.Write("\nМашинный ноль для типа double в C#: ");
+            PrintColoredText(string.Format("{0}\n", double.Epsilon), ConsoleColor.Cyan);
+
             Console.ReadKey();
         }
 
@@ -36,8 +49,8 @@ namespace VMathLaba1._1
 
         private static float GetFloatMachineEpsilon()
         {
-            float epsilon = 1.0f;
-            float value = 1.0f;
+            float epsilon = 1f;
+            float value = 1f;
             while (value + 1f > 1f)
             {
                 value /= 2;
@@ -53,11 +66,11 @@ namespace VMathLaba1._1
         private static double GetDoubleMachineEpsilon()
         {
 
-            double epsilon = 1.0d;
-            double value = 1.0d;
+            double epsilon = 1d;
+            double value = 1d;
             while (value + 1d > 1d)
             {
-                value /= 2;
+                value /= 2d;
                 if (value != 0)
                 {
                     epsilon = value;
@@ -70,37 +83,72 @@ namespace VMathLaba1._1
 
         private static float GetFloatMachineInfinity()
         {
-            float infinity = 0.1f;
-            float value = 0.1f;
-            while (true)
+            float infinity = 1f;
+            float value = 1f;
+            while (!float.IsInfinity(value))
             {
-                value *= 2;
-
-                if (value == float.PositiveInfinity) break;
-
                 infinity = value;
+                value *= 2;
             }
 
             return infinity;
         }
-
-
 
 
         private static double GetDoubleMachineInfinity()
         {
-            double infinity = 0.1d;
-            double value = 0.1d;
-            while (true)
+            double infinity = 1d;
+            double value = 1d;
+            while (!double.IsInfinity(value))
             {
-                value *= 2;
-
-                if (value == double.PositiveInfinity) break;
-
                 infinity = value;
+                value *= 2;
             }
 
             return infinity;
         }
+
+
+        private static double GetDoubleMachineZero()
+        {
+
+            double zero = 0.1d;
+            double value = 0.1d;
+            while (value != 0)
+            {
+               
+                if ((value / 2) <= 0d)
+                {
+                    zero = value;
+                }
+                value /= 2;
+            }
+
+
+            return zero;
+        } 
+        
+        private static double GeFloatMachineZero()
+        {
+
+            float zero = 0.1f;
+            float value = 0.1f;
+
+            while (value != 0f)
+            {
+               
+                if ((value / 2) <= 0f)
+                {
+                    zero = value;
+                }
+                value /= 2;
+            }
+
+
+            return zero;
+        }
+
+
+
     }
 }
