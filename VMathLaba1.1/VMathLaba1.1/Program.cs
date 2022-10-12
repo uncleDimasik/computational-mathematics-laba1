@@ -5,17 +5,17 @@ namespace VMathLaba1._1
     class Program
     {
         static void Main(string[] args)
-        {            
+        {
             Console.Write("Машинный эпсилон для типа float, полученный при расчетах: ");
             PrintColoredText(string.Format("{0}", GetFloatMachineEpsilon()), ConsoleColor.Cyan);
 
-            Console.Write("\nМашинный эпсилон для типа float в C#: ");
+            Console.Write("\nМашинный ноль для типа float в C#: ");
             PrintColoredText(string.Format("{0}\n", float.Epsilon), ConsoleColor.Cyan);
 
             Console.Write("\nМашинный эпсилон для типа double, полученный при расчетах: ");
             PrintColoredText(string.Format("{0}", GetDoubleMachineEpsilon()), ConsoleColor.Cyan);
 
-            Console.Write("\nМашинный эпсилон для типа double в C#: ");
+            Console.Write("\nМашинный ноль для типа double в C#: ");
             PrintColoredText(string.Format("{0}\n", double.Epsilon), ConsoleColor.Cyan);
 
             Console.Write("\nМашинная бесконечность для типа float равна: ");
@@ -26,34 +26,19 @@ namespace VMathLaba1._1
             Console.ReadKey();
         }
 
-        private static void PrintColoredText(string text, ConsoleColor color) 
+        private static void PrintColoredText(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write(text);
             Console.ResetColor();
         }
 
-        private static double GetDoubleMachineEpsilon() 
-        {
-            double epsilon = 1.0;
-            double value = 1.0;
-            while (value + 1 > 1)
-            {
-                value /= 2;
-                if (value != 0)
-                {
-                    epsilon = value;
-                }
-            }
 
-            return epsilon;
-        }
-
-        private static float GetFloatMachineEpsilon() 
+        private static float GetFloatMachineEpsilon()
         {
             float epsilon = 1.0f;
             float value = 1.0f;
-            while (value + 1 > 1)
+            while (value + 1f > 1f)
             {
                 value /= 2;
                 if (value != 0)
@@ -64,6 +49,24 @@ namespace VMathLaba1._1
 
             return epsilon;
         }
+
+        private static double GetDoubleMachineEpsilon()
+        {
+
+            double epsilon = 1.0d;
+            double value = 1.0d;
+            while (value + 1d > 1d)
+            {
+                value /= 2;
+                if (value != 0)
+                {
+                    epsilon = value;
+                }
+            }
+
+            return epsilon;
+        }
+
 
         private static float GetFloatMachineInfinity()
         {
@@ -81,10 +84,13 @@ namespace VMathLaba1._1
             return infinity;
         }
 
-        private static double GetDoubleMachineInfinity() 
+
+
+
+        private static double GetDoubleMachineInfinity()
         {
-            double infinity = 0.1;
-            double value = 0.1;
+            double infinity = 0.1d;
+            double value = 0.1d;
             while (true)
             {
                 value *= 2;
