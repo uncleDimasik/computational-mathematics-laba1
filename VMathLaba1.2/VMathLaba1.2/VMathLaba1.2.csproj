@@ -6,4 +6,9 @@
     <RootNamespace>VMathLaba1._2</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <ErrorReport>prompt</ErrorReport>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
 </Project>

@@ -26,7 +26,7 @@ namespace VMathLaba1._2
             }
             for (int i = 1; i <= n; i++)
             {
-                factorial *= i;
+                factorial = checked(factorial * i);
             }
 
             return factorial;
@@ -95,12 +95,20 @@ namespace VMathLaba1._2
                 var fact = Factorial(n);
 
 
-                if (fact <= 0)
+                if (fact >= int.MaxValue)
                 {
                     break;
                 }
 
-                res = Math.Pow(-1, n) * Math.Pow(x, 2 * n + 1) / (fact * (2 * n + 1));
+                try
+                {
+                    res = checked(Math.Pow(-1, n) * Math.Pow(x, 2 * n + 1) / (fact * (2 * n + 1)));
+                }
+                catch (OverflowException)
+                {
+                    break;
+                }
+
 
                 if (double.IsInfinity(res) || res == 0d)
                 {
@@ -117,25 +125,26 @@ namespace VMathLaba1._2
 
         public static double ErrorFuncModify(double x)
         {
-            double sum = 0;
-            double prevElem = (-1) * x; // Потому что a(0) = -x т.е. каждый первый элемент будет равным -x
 
-            for (int n = 1; ; n++)
+            double sum = x, mult = 1, memb;
+            int n = 0;
+            //https://ru.wikipedia.org/wiki/Функция_ошибок
+
+            //https://math.stackexchange.com/questions/3694975/evaluating-erfx-using-taylors-series
+
+            do
             {
-                double k = GetCoefficient(x, n);
-                double res = k * prevElem;
-                if (res == 0)
+                n++;
+                mult *= -x * x / n;
+                memb = x / (2 * n + 1) * mult;
+                if (memb == 0d)
+                {
                     break;
-                prevElem = res;
-                sum += res;
-            }
+                }
+                sum += memb;
+            } while (true);
 
-            return 2 / Math.Sqrt(Math.PI) * sum;
-        }
-
-        private static double GetCoefficient(double x, int n)
-        {
-            return (-1) * Math.Pow(x, 2) * (2 * n - 1) / (n * (2 * n + 1));
+            return (2 / Math.Sqrt(Math.PI)) * sum;
         }
 
     }
