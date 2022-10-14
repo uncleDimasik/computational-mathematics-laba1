@@ -26,7 +26,7 @@ namespace VMathLaba1._2
             }
             for (int i = 1; i <= n; i++)
             {
-                factorial = checked(factorial * i);
+                    factorial = checked(factorial * i);
             }
 
             return factorial;
@@ -100,8 +100,7 @@ namespace VMathLaba1._2
                     break;
                 }
 
-                try
-                {
+                try {
                     res = checked(Math.Pow(-1, n) * Math.Pow(x, 2 * n + 1) / (fact * (2 * n + 1)));
                 }
                 catch (OverflowException)
@@ -128,23 +127,24 @@ namespace VMathLaba1._2
 
             double sum = x, mult = 1, memb;
             int n = 0;
-            //https://ru.wikipedia.org/wiki/Функция_ошибок
 
-            //https://math.stackexchange.com/questions/3694975/evaluating-erfx-using-taylors-series
+        //https://ru.wikipedia.org/wiki/Функция_ошибок
+
+        //https://math.stackexchange.com/questions/3694975/evaluating-erfx-using-taylors-series
 
             do
             {
                 n++;
                 mult *= -x * x / n;
                 memb = x / (2 * n + 1) * mult;
-                if (memb == 0d)
+                if (memb==0d)
                 {
                     break;
                 }
                 sum += memb;
             } while (true);
 
-            return (2 / Math.Sqrt(Math.PI)) * sum;
+            return (2 / Math.Sqrt(Math.PI))  * sum;
         }
 
     }
